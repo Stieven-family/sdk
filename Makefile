@@ -6,7 +6,7 @@
 #    By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/20 12:34:41 by josfelip          #+#    #+#              #
-#    Updated: 2024/06/26 10:47:17 by josfelip         ###   ########.fr        #
+#    Updated: 2024/06/26 10:56:26 by josfelip         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,12 @@ ifdef WITH_DEBUG
   CFLAGS = ${DFLAGS}
 endif
 
-INCLUDE_DIR = ./include/
-INCLUDE_PATH = ${wildcard $(INCLUDE_DIR)*.h}
+INCLUDE_DIR = ./include
+INCLUDE_PATH = ${wildcard $(INCLUDE_DIR)/*.h}
 INCLUDE = ${notdir $(INCLUDE_PATH)}
 
-SRC_DIR = ./src/
-SRC_PATH = ${wildcard $(SRC_DIR)*.c}
+SRC_DIR = ./src
+SRC_PATH = ${wildcard $(SRC_DIR)/*.c}
 SRC = ${notdir $(SRC_PATH)}
 
 OBJ_DIR = ./obj
@@ -35,7 +35,7 @@ ifdef WITH_DEBUG
 endif
 OBJ_PATH = ${addprefix $(OBJ_DIR), $(SRC:%.c=%.o)}
 
-LIBFT_DIR = ./lib/libft/
+LIBFT_DIR = ./lib/libft
 LIBFT = libft.a
 LIBFT_PATH = ${addprefix $(LIBFT_DIR), $(LIBFT)}
 
@@ -49,14 +49,14 @@ libft:
 ${OBJ_DIR}:
 	mkdir -p ${OBJ_DIR}
 
-${OBJ_DIR}%.o: ${SRC_DIR}%.c ${INCLUDE_PATH}
+${OBJ_DIR}/%.o: ${SRC_DIR}/%.c ${INCLUDE_PATH}
 	${CC} ${CFLAGS} -I${INCLUDE_DIR} -c $< -o $@
 	
-$(OBJ_DIR)main.o: main.c ${INCLUDE_PATH}
+$(OBJ_DIR)/main.o: main.c ${INCLUDE_PATH}
 	${CC} ${CFLAGS} -I${INCLUDE_DIR} -c $< -o $@
 
-${NAME}: ${OBJ_PATH} $(OBJ_DIR)main.o
-	${CC} ${CFLAGS} -o ${NAME} ${OBJ_PATH} $(OBJ_DIR)main.o -L $(LIBFT_DIR) -lft
+${NAME}: ${OBJ_PATH} $(OBJ_DIR)/main.o
+	${CC} ${CFLAGS} -o ${NAME} ${OBJ_PATH} $(OBJ_DIR)/main.o -L $(LIBFT_DIR) -lft
 
 clean:
 	${RM} ${OBJ_DIR}
@@ -72,6 +72,10 @@ re: fclean all
 debug:
 	@make WITH_DEBUG=TRUE --no-print-directory
 
-.PHONY: all libft clean fclean re debug
+print:
+	@echo "INCLUDE_PATH: ${INCLUDE_PATH}"
+	@echo "SRC_PATH: ${SRC_PATH}"
+
+.PHONY: all libft clean fclean re debug print
 
 
