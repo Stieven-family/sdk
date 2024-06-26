@@ -1,2 +1,6 @@
-*.o
-.vscode
+*
+!include/
+!src/
+!lib/
+!main.c
+!Makefile
