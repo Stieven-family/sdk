@@ -6,7 +6,7 @@
 #    By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/20 12:34:41 by josfelip          #+#    #+#              #
-#    Updated: 2024/06/26 10:37:29 by josfelip         ###   ########.fr        #
+#    Updated: 2024/06/26 10:47:17 by josfelip         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,9 @@ SRC_DIR = ./src/
 SRC_PATH = ${wildcard $(SRC_DIR)*.c}
 SRC = ${notdir $(SRC_PATH)}
 
-OBJ_DIR = ./obj/
+OBJ_DIR = ./obj
 ifdef WITH_DEBUG
-  OBJ_DIR = ./obj_debug/
+  OBJ_DIR = ./obj_debug
 endif
 OBJ_PATH = ${addprefix $(OBJ_DIR), $(SRC:%.c=%.o)}
 
@@ -60,9 +60,11 @@ ${NAME}: ${OBJ_PATH} $(OBJ_DIR)main.o
 
 clean:
 	${RM} ${OBJ_DIR}
+	${RM} ${OBJ_DIR}_debug
 
 fclean: clean
 	${RM} ${NAME}
+	${RM} ${NAME}_debug
 	@make fclean -C ${LIBFT_DIR} --no-print-directory
 
 re: fclean all
