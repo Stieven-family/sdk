@@ -6,19 +6,19 @@
 #    By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/20 12:34:41 by josfelip          #+#    #+#              #
-#    Updated: 2024/06/25 16:29:34 by josfelip         ###   ########.fr        #
+#    Updated: 2024/06/26 09:59:15 by josfelip         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	new_project
+NAME = new_project
 
 INCLUDE_DIR = ./include/
-INCLUDE = 
-INCLUDE_PATH = $(addprefix $(INCLUDE_DIR), $(INCLUDE))
+INCLUDE_PATH = $(wildcard $(INCLUDE_DIR)*.h)
+INCLUDE = $(notdir $(INCLUDE_PATH))
 
 SRC_DIR = ./src/
-SRC = main.c
-SRC_PATH = $(addprefix $(SRC_DIR), $(SRC))
+SRC_PATH = $(wildcard $(SRC_DIR)*.c)
+SRC = $(notdir $(SRC_PATH))
 
 OBJ_DIR = ./obj/
 OBJ_PATH = $(addprefix $(OBJ_DIR), $(SRC:%.c=%.o))
@@ -27,8 +27,8 @@ LIBFT_DIR = ./lib/libft/
 LIBFT = libft.a
 LIBFT_PATH = $(addprefix $(LIBFT_DIR), $(LIBFT))
 
-CFLAGS	= -Wall -Wextra -Werror
-RM		= rm -rf
+CFLAGS = -Wall -Wextra -Werror
+RM = rm -rf
 
 all: libft ${OBJ_DIR} ${NAME}
 
